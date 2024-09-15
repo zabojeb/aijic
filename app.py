@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify, render_template
 import pandas as pd
 from flask_docs import ApiDoc
 
-# ВСЯ ML ЧАСТЬ В ФАЙЛЕ model.py
+# Вся ML model.py
 from model import string_analyse, tests_analyse
 
 app = Flask(__name__, static_folder='static', template_folder='templates')
@@ -17,6 +17,7 @@ ApiDoc(
 # API для анализа текста, возвращает JSON
 @app.route('/analyse', methods=['POST'])
 def analyse_text():
+    
     try:
         data = request.json
         text = data.get("text", "")
@@ -46,6 +47,7 @@ def upload_csv():
 @app.route('/')
 def index():
     return render_template('index.html')
+
 
 if __name__ == '__main__':
     app.run(port="5500", debug=True)
