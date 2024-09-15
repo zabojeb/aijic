@@ -17,7 +17,6 @@ ApiDoc(
 # API для анализа текста, возвращает JSON
 @app.route('/analyse', methods=['POST'])
 def analyse_text():
-    
     try:
         data = request.json
         text = data.get("text", "")

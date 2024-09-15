@@ -2,14 +2,13 @@ import torch
 from transformers import XLMRobertaTokenizer, AutoModelForSequenceClassification
 import pandas as pd
 
+model_path = "zabojeb/rubert-classifier"
+tokenizer = XLMRobertaTokenizer.from_pretrained(model_path)
+model = AutoModelForSequenceClassification.from_pretrained(
+    model_path, config=f'{model_path}/config.json')
+model.eval()
 
 def review(text):
-    model_path = "model\\fine_tuned_rubert"
-    tokenizer = XLMRobertaTokenizer.from_pretrained(model_path)
-    model = AutoModelForSequenceClassification.from_pretrained(
-        model_path, config=f'{model_path}\\config.json')
-    model.eval()
-
     inputs = tokenizer(text, return_tensors="pt",
                        truncation=True, padding=True, max_length=512)
     with torch.no_grad():
@@ -21,11 +20,6 @@ def review(text):
 
 
 def reviews(df):
-    model_path = "model\\fine_tuned_rubert"
-    tokenizer = XLMRobertaTokenizer.from_pretrained(model_path)
-    model = AutoModelForSequenceClassification.from_pretrained(
-        model_path, config=f'{model_path}\\config.json')
-    model.eval()
     for i in range(df.shape[0]):
         inputs = tokenizer(df['Reviews'][i], return_tensors="pt",
                            truncation=True, padding=True, max_length=512)
