@@ -404,6 +404,48 @@
       function getEmoji(value) {
         return value === 1 ? "✅" : "❌";
       }
+
+from transformers import AutoTokenizer, AutoModelForSequenceClassification
+
+model_checkpoint = 'cointegrated/rubert-base-cased-nli-threeway'
+tokenizer = AutoTokenizer.from_pretrained(model_checkpoint)
+model = AutoModelForSequenceClassification.from_pretrained(model_checkpoint)
+if torch.cuda.is_available():
+    model.cuda()
+
+def predict_zero_shot(text, label_texts, model, tokenizer, label='entailment', normalize=True):
+    label_texts
+    tokens = tokenizer([text] * len(label_texts), label_texts, truncation=True, return_tensors='pt', padding=True)
+    with torch.inference_mode():
+        result = torch.softmax(model(**tokens.to(model.device)).logits, -1)
+    proba = result[:, model.config.label2id[label]].cpu().numpy()
+    if normalize:
+        proba /= sum(proba)
+    return proba
+aspects1 = ['практика','теория','преподаватель','технологии','актуальность']
+
+def ton_dataset(df):
+    for i in aspects1:
+        df[i+'_тональность'] = 0
+
+    aspects = ['practice','theory','teacher','technologies','relevance']
+    classes = ['negative', 'neutral', 'positive']
+    for i in range(df.shape[0]):
+        for j in range(5):
+            if (df[aspects1[j]][i] == 1):
+                class_to_pred = []
+                for k in range(3):
+                    class_to_pred.append(aspects[j] +' '+ classes[k])
+                pred = predict_zero_shot(df['Reviews'][i], classes, model, tokenizer)
+                df.loc[i,aspects1[j]+"_тональность"] = pred.argmax()
+    df = df.drop('Unnamed: 0',axis=1)
+    df = df.fillna(0)
+    df['практика'] += df['практика_тональность']
+    df['теория'] += df['теория_тональность']
+    df['преподаватель'] += df['преподаватель_тональность']
+    df['технологии'] += df['технологии_тональность']
+    df['актуальность'] += df['актуальность_тональность']
+    return df
     </script>
   </body>
 </html>
