@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from flask import Flask, request, jsonify, render_template
 import pandas as pd
 # from flask_docs import ApiDoc
@@ -58,6 +61,11 @@ def upload_csv():
 # Маршрут для отображения фронтенда
 @app.route("/")
 def index():
+    return render_template("title.html")
+
+
+@app.route("/analyse")
+def analyse_route():
     return render_template("index.html")
 
 
