@@ -256,6 +256,8 @@
 
           if (response.ok) {
             const resultData = result.result;
+            const resultDataTon = result.result_ton;
+
             const resultTable = `<table>
                     <tr><th>Актуальность</th><th>Практика</th><th>Преподаватель</th><th>Теория</th><th>Технологии</th></tr>
                     <tr>
@@ -264,6 +266,13 @@
                         <td>${getEmoji(resultData["преподаватель"])}</td>
                         <td>${getEmoji(resultData["теория"])}</td>
                         <td>${getEmoji(resultData["технологии"])}</td>
+                    </tr>
+                    <tr>
+                        <td>${resultDataTon["актуальность"]}</td>
+                        <td>${resultDataTon["практика"]}</td>
+                        <td>${resultDataTon["преподаватель"]}</td>
+                        <td>${resultDataTon["теория"]}</td>
+                        <td>${resultDataTon["технологии"]}</td>
                     </tr>
                 </table>`;
             resultDiv.innerHTML = resultTable;
