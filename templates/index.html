@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AIIJC - ALT</title>
@@ -13,14 +13,25 @@
         font-family: "Nunito", sans-serif;
         margin: 0;
         padding: 0;
-        background-color: #f4f4f4;
+        background-color: #000000;
+        opacity: 0; /* Начальная прозрачность */
+        transition: opacity 1s ease;
       }
       header {
-        background-color: #132438;
+        background-color: #000000;
         color: white;
         text-align: center;
         padding: 1em 0;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 1px 1.5px rgb(255, 255, 255);
+        position: relative; /* Позволяет дочерним элементам позиционироваться относительно header */
+      }
+      .gif {
+        position: absolute;
+        right: 10px; /* Отступ от правого края */
+        top: 50%;
+        transform: translateY(-50%); /* Центрируем по вертикали */
+        width: 115px; /* Ширина гифки */
+        height: auto;
       }
       .container {
         margin: 2em auto;
@@ -33,7 +44,7 @@
       h2 {
         font-weight: 600;
         color: #132438;
-        border-bottom: 2px solid #132438;
+        border-bottom: 2px solid #000000;
         padding-bottom: 0.5em;
         margin-bottom: 1.5em;
       }
@@ -53,7 +64,7 @@
       }
       .file-input-label,
       .button {
-        background-color: #132438;
+        background-color: #000000;
         color: white;
         padding: 12px 18px;
         border-radius: 15px;
@@ -67,7 +78,7 @@
       }
       .file-input-label:hover,
       .button:hover {
-        background-color: #0e1b30;
+        background-color: #000000e1;
         transform: scale(1.02);
       }
       .loading-container {
@@ -81,7 +92,7 @@
         width: 24px;
         height: 24px;
         border: 3px solid #ddd;
-        border-top: 3px solid #132438;
+        border-top: 3px solid #000000;
         border-radius: 50%;
         animation: spin 1s linear infinite;
       }
@@ -134,7 +145,7 @@
       }
       .download-button {
         display: none;
-        background-color: #132438;
+        background-color: #000000;
         color: white;
         padding: 12px 18px;
         border-radius: 15px;
@@ -146,13 +157,14 @@
         display: inline-block;
       }
       .download-button:hover {
-        background-color: #0e1b30;
+        background-color: #000000e1;
         transform: scale(1.02);
       }
     </style>
   </head>
   <body>
     <header>
+      <img src="herobox-butterfly_animation.gif" alt="Gif" class="gif" />
       <h1>Анализатор-3000</h1>
     </header>
 
@@ -199,6 +211,9 @@
     </div>
 
     <script>
+      window.onload = function() {
+        document.body.style.opacity = 1;
+      };
       function startTimer(timerId) {
         const timerElement = document.getElementById(timerId);
         let seconds = 0;
