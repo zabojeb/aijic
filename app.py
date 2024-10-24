@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify, render_template
 import pandas as pd
-from flask_docs import ApiDoc
+# from flask_docs import ApiDoc
 
 # Вся ML в model.py
 debug = True
@@ -11,12 +11,14 @@ else:
 
 app = Flask(__name__, static_folder="static", template_folder="templates")
 
+"""
 ApiDoc(
     app,
     title="AIJIC",
     version="1.0.0",
     description="AIJIC hackathon app",
 )
+"""
 
 
 # API для анализа текста, возвращает JSON

@@ -22,3 +22,7 @@ def ton_analyse(text):
     aspects = ["практика", "теория", "преподаватель", "технологии", "актуальность"]
     response = dict((aspects[i], int(result[i])) for i in range(5))
     return response
+
+
+def tests_analyse(df):
+    pass
